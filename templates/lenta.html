@@ -1,0 +1,83 @@
+{% extends "ind.html" %}
+{% block content2 %}
+<div id="page">
+    <div class="sidebar-left-article">
+        <div class="article">
+            <div id="content_box">
+                <div class="featured-stories-tabs clearfix">
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <a href="/about-us-tg" class="btn btn-outline-dark" role="button">Лента новостей</a>
+                        <a href="\" class="btn btn-outline-dark" role="button">Записи пользователей</a>
+                        {% if current_user.is_authenticated %}
+                        <a href="/home_page/{{ current_user.id }}" class="btn btn-outline-dark" role="button">Моя
+                            страница</a>
+                        {% else %}
+                        <a href="/register" class="btn btn-outline-dark" role="button">Моя страница</a>
+                        {% endif %}
+                    </div>
+                    <div id="tab-content" class="tabs-content">
+                        <div id="latest-tab-content" style="">
+                            <main role="main" class="container">
+                                {% block content1 %}{% endblock %}
+                            </main>
+                        </div>
+                        <div id="random-tab-content" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aside id="sidebar" class="sidebar c-4-12 sidebar-left" role="complementary" itemscope=''>
+            <div id="categories-2" class="widget widget_categories">
+                <h3 class="widget-title">Категории</h3>
+                <ul>
+                    <li class="cat-item cat-item-2"><a
+                            href="/">Солянка новостей	&#129313;</a>
+                    </li>
+                    <li class="cat-item cat-item-2"><a
+                            href="/categorys/{{ 1 }}">Развлечение 💯</a>
+                    </li>
+                    <li class="cat-item cat-item-3"><a
+                            href="/categorys/{{ 2 }}">Мир 	&#127479;&#127482;</a>
+                    </li>
+                    <li class="cat-item cat-item-4"><a
+                            href="/categorys/{{ 3 }}">Спорт	&#9917;</a>
+                    </li>
+                    <li class="cat-item cat-item-5"><a
+                            href="/categorys/{{ 4 }}">Компьютерные технологии 	&#128163;</a>
+                    </li>
+                    <li class="cat-item cat-item-5"><a
+                            href="/categorys/{{ 5 }}">Для детей &#128044;</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <aside id="sidebar" class="sidebar c-4-12 mts-sidebar-sidebar" itemscope="">
+        <div>
+            {% if current_user.is_authenticated and current_user.img %}
+            <img src="{{ url_for('static', filename='img/' + current_user.img)}}" width="230" height="200"
+                 alt="Перезагрузите страницу">
+            {% else %}
+            <img src="{{ url_for('static', filename='img/cat.jpg')}}" width="230" height="200"
+                 alt="Перезагрузите страницу">
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <h1 style="color: red" align="left">
+                <a href="/home_page/{{ current_user.id }}">{{ current_user.name }}<a>
+            </h1>
+            <form enctype="multipart/form-data" method="post">
+                <p><input type="file" name="f" accept="image/*">
+                    <input type="submit" value="Поменять аватар" style="color: blue"><br><br></p>
+            </form>
+            {% endif %}
+            <div>
+                {% if current_user.is_authenticated %}
+                <a href="news" class="btn btn-secondary">Добавить запись</a>
+                {% endif %}
+            </div>
+        </div>
+    </aside>
+
+</div>
+{% endblock %}

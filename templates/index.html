@@ -1,0 +1,62 @@
+{% extends lenta + ".html" %}
+
+{% block content1 %}
+{% for item in news%}
+<article class="latestPost excerpt">
+    <div class="post-info">
+        <div class="post-info-left">
+            {% if item.user.img %}
+            <div class="mts-profile-avatar"><img alt=''
+                                                 src="{{ url_for('static', filename='img/' + item.user.img)}}"
+                                                 class='avatar avatar-90 photo' height='90' width="90"
+                                                 loading='lazy'/></div>
+            {% else %}
+            <div class="mts-profile-avatar"><img alt=''
+                                                 src="{{ url_for('static', filename='img/cat.jpg')}}"
+                                                 class='avatar avatar-90 photo' height='90' width="90"
+                                                 loading='lazy'/>
+            </div>
+            {% endif %}
+            <div class="author-info">
+                {% if current_user.is_authenticated %}
+                <div class="vcard"><a href="/home_page/{{ item.user.id }}"
+                        class="fn">{{ item.user.name }}</a></div>
+                {% else %}
+                                    <div class="vcard"><a href="/register"
+                        class="fn">{{ item.user.name }}</a></div>
+                {% endif %}
+                <div class="thetime updated"><span>{{item.created_date}}</span></div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <h2 class="title front-view-title"><a>{{ item.title }}</a></h2>
+    </header>
+
+    <a title=""
+       id="featured-thumbnail">
+        <div class="featured-thumbnail">
+            {% if item.img %}
+            <img src="{{ url_for('static', filename='img_news/' + item.img)}}"
+                 class="wp-post-image" width="530" height="250">
+            {% endif %}
+        </div>
+    </a>
+    <div class="front-view-content">
+        {{item.content}}
+    </div>
+    {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/news/{{ item.id }}" class="btn btn-dark">
+            Изменить
+        </a>
+        <a href="/news_delete/{{ item.id }}" class="btn btn-primary">
+            Удалить
+        </a>
+    </div>
+    {% endif %}
+</article>
+{% endfor %}
+<div><h5 align="center"><br><br>На этом пока всё.&#128532; Удачи!
+    <br><br></h5></div>
+{% endblock %}

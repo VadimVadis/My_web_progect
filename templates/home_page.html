@@ -1,0 +1,66 @@
+{% extends "ind.html" %}
+
+{% block content2 %}
+<div id="page">
+    <div class="sidebar-left-article">
+        <div class="article">
+            <div id="content_box">
+                <h1 class="postsby" align="center">
+                    <span>Новости</span>
+                </h1>
+                <p></p>
+                <main role="main" class="container">
+                    {% block content1 %}{% endblock %}
+                </main>
+            </div>
+        </div>
+        <aside id="sidebar" class="sidebar c-4-12 sidebar-left" role="complementary" itemscope>
+            <div id="mts_featured_author_box_widget-2" class="widget widget_mts_featured_author_box_widget">
+                <div class="mts-author-box">
+                    <div class="mts-author-box-top">
+                        {% if current_user.img %}
+                        <div class="mts-profile-avatar"><img alt=''
+                                                             src="{{ url_for('static', filename='img/' + current_user.img)}}"
+                                                             class='avatar avatar-90 photo' height='90' width='90'
+                                                             loading='lazy'/></div>
+                        {% else %}
+                        <div class="mts-profile-avatar"><img alt=''
+                                                             src="{{ url_for('static', filename='img/cat.jpg')}}"
+                                                             class='avatar avatar-90 photo' height='90' width='90'
+                                                             loading='lazy'/></div>
+                        {% endif %}
+                        <div class="mts-profile-links"><strong>{{ current_user.name }}</strong>
+                        </div>
+                    </div>
+                    <div class="mts-author-box-bottom"><a
+                            class="mts-author-box-full"><strong>{{ your_count }}</strong><span><i
+                            class="fa fa-file-text"></i>Posts</span></a>
+                    </div>
+                </div>
+            </div>
+            <div id="categories-2" class="widget widget_categories"><h3 class="widget-title">Категории новостей пользователя</h3>
+                <ul>
+                    <li class="cat-item cat-item-2"><a href="/home_page/{{ user_id }}">Все новости</a>
+                    </li>
+                    <li class="cat-item cat-item-2"><a href="/home_page/{{ user_id }}/{{ 1 }}">Развлечение</a>
+                    </li>
+                    <li class="cat-item cat-item-3"><a href="/home_page/{{ user_id }}/{{ 2 }}">Мир</a>
+                    </li>
+                    <li class="cat-item cat-item-4 current-cat"><a aria-current="page"
+                                                                   href="/home_page/{{ user_id }}/{{ 3 }}">Наши новости</a>
+                    </li>
+                    <li class="cat-item cat-item-4 current-cat"><a aria-current="page"
+                                                                   href="/home_page/{{ user_id }}/{{ 4 }}">Для детей</a>
+                    </li>
+                    <li class="cat-item cat-item-5"><a
+                            href="/home_page/{{ user_id }}/{{ 5 }}">Компьютерные технологии</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="/" class="btn btn-secondary">Вернуться назад</a>
+            <a href="/news" class="btn btn-secondary">Добавить запись</a>
+        </aside>
+    </div>
+
+</div>
+{% endblock %}
