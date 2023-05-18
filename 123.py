@@ -1,7 +1,7 @@
 import requests
 import json
 
-url = "http://127.0.0.1:5000/api/login"
+url = "http://193.168.49.71:5000/register"
 
 data = {
     "username": "example_user",

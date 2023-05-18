@@ -38,8 +38,7 @@ def latest_news(channel_name):
 def main():
     db_session.global_init("db/blogs.db")
     app.register_blueprint(news_users_api.blueprint)
-    app.run()
-    # serve(app, host="0.0.0.0", port=8080)
+    serve(app, host="0.0.0.0", port=5000)
 
 
 @app.errorhandler(404)
