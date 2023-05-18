@@ -62,3 +62,68 @@ def get_one_users(users_id):
             'users': users.to_dict(only=('id', 'name', 'email', 'created_date'))
         }
     )
+
+
+@blueprint.route('/api/news/entertainment')
+def get_news_entertainment():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.category_id == 1)
+    return jsonify(
+        {
+            'news':
+                [item.to_dict(only=('title', 'content', 'user.name', 'img'))
+                 for item in news]
+        }
+    )
+
+
+@blueprint.route('/api/news/for_children')
+def get_news_for_children():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.category_id == 5)
+    return jsonify(
+        {
+            'news':
+                [item.to_dict(only=('title', 'content', 'user.name', 'img'))
+                 for item in news]
+        }
+    )
+
+
+@blueprint.route('/api/news/world')
+def get_news_world():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.category_id == 2)
+    return jsonify(
+        {
+            'news':
+                [item.to_dict(only=('title', 'content', 'user.name', 'img'))
+                 for item in news]
+        }
+    )
+
+
+@blueprint.route('/api/news/our_news')
+def get_news_our_news():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.category_id == 3)
+    return jsonify(
+        {
+            'news':
+                [item.to_dict(only=('title', 'content', 'user.name', 'img'))
+                 for item in news]
+        }
+    )
+
+
+@blueprint.route('/api/news/computer_tehn')
+def get_news_computer_tehn():
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.category_id.id == 4)
+    return jsonify(
+        {
+            'news':
+                [item.to_dict(only=('title', 'content', 'user.name', 'img'))
+                 for item in news]
+        }
+    )

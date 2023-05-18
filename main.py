@@ -38,7 +38,8 @@ def latest_news(channel_name):
 def main():
     db_session.global_init("db/blogs.db")
     app.register_blueprint(news_users_api.blueprint)
-    serve(app, host="0.0.0.0", port=8080)
+    app.run()
+    # serve(app, host="0.0.0.0", port=8080)
 
 
 @app.errorhandler(404)
@@ -291,6 +292,49 @@ def home_page_funny(id, id_category):
     return render_template('index.html', news=news, lenta="home_page", your_count=your_count, user_id=id)
 
 
-if __name__ == '__main__':
+@app.route('/api/register', methods=['POST'])
+def api_register_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    db_sess = db_session.create_session()
+    if db_sess.query(User).filter(User.name == username):
+        user = User(
+            name=username
+        )
+        user.set_password(password)
+        db_sess.add(user)
+        db_sess.commit()
+        response = {
+            'message': 'Registration Successful'
+        }
+        return jsonify(response), 200
+    response = {
+            'message': 'Such a user already exists'
+        }
+    return jsonify(response), 404
 
+
+@app.route('/api/login', methods=['POST'])
+def api_login_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.name == username).first()
+
+    if user and user.check_password(password):
+        response = {
+            'message': 'Registration Successful'
+        }
+        return jsonify(response), 200
+    response = {
+            'message': 'Invalid password'
+        }
+    return jsonify(response), 404
+
+
+
+
+if __name__ == '__main__':
     main()
