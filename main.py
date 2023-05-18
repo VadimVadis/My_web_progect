@@ -11,7 +11,7 @@ import news_users_api
 from forms.news import NewsForm
 from news import News
 from users import User
-
+from waitress import serve
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -38,7 +38,7 @@ def latest_news(channel_name):
 def main():
     db_session.global_init("db/blogs.db")
     app.register_blueprint(news_users_api.blueprint)
-    app.run()
+    serve(app, host="0.0.0.0", port=8080)
 
 
 @app.errorhandler(404)
@@ -292,4 +292,5 @@ def home_page_funny(id, id_category):
 
 
 if __name__ == '__main__':
+
     main()
