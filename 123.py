@@ -4,8 +4,8 @@ import json
 url = "http://193.168.49.71:5000/register"
 
 data = {
-    "username": "example_user",
-    "password": "example_pas23"}
+    "username": "",
+    "password": ""}
 
 json_data = json.dumps(data)
 headers = {"Content-Type": "application/json"}
